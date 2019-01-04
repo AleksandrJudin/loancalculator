@@ -1,6 +1,11 @@
-document.getElementById('loan-form').addEventListener('submit', calculateResults);
+document.getElementById('loan-form').addEventListener('submit', function(e){
+     
+     document.getElementById('loading').style.display = 'block';
+     setTimeout(calculateResults, 2000);
+     e.preventDefault();
+});
 
-function calculateResults(e) {
+function calculateResults() {
      console.log('Calculating...');
 
      //UI Vars
@@ -25,12 +30,12 @@ function calculateResults(e) {
           mounthlyPayment.value = mounthly.toFixed(2);
           totalPayment.value = (mounthly * colculatedPayments).toFixed(2);
           totalInterest.value = ((mounthly * colculatedPayments)- principal).toFixed(2);
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('results').style.display = 'block';
      } else {
           
           showError('Please check your numbers')
      }
-     resultShow();
-     e.preventDefault();
 }
 
 // Ошибка при пустом значение
